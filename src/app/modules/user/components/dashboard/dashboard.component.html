@@ -8,27 +8,74 @@
                 </button>
                 <mat-menu class="container-card--header--menu" #menu="matMenu" xPosition="before">
                 <mat-card-subtitle>Sort by</mat-card-subtitle>
-                <button mat-menu-item>
-                    <mat-icon>dialpad</mat-icon>
-                    <span>Redial</span>
+                <button mat-menu-item (click)="getTasks(false, 'name', false)">
+                    <mat-icon>sort_by_alpha</mat-icon>
+                    <span>Title</span>
                 </button>
-                <button mat-menu-item disabled>
-                    <mat-icon>voicemail</mat-icon>
-                    <span>Check voice mail</span>
+                <button mat-menu-item (click)="getTasks(false, 'createdDate', false)">
+                    <mat-icon>date_range</mat-icon>
+                    <span>Created Date</span>
                 </button>
-                <button mat-menu-item>
-                    <mat-icon>notifications_off</mat-icon>
-                    <span>Disable alerts</span>
+                <button mat-menu-item (click)="getTasks(false, 'endDate', false)">
+                    <mat-icon>update</mat-icon>
+                    <span>Deadline</span>
                 </button>
                 </mat-menu>
             </div>
           <!-- <mat-card-subtitle>Herding group</mat-card-subtitle> -->
         </mat-card-header>
         <mat-card-actions>
-          <button mat-button class="container-actions--btn">
+          <button mat-button class="container-actions--btn" (click)="openDialog('800ms', '500ms')">
             <mat-icon>library_add</mat-icon>
             Add a Task
         </button>
         </mat-card-actions>
+        <mat-card-content>
+            @for (task of tasks; track task) {
+            <div class="container-card--content">
+                <div class="container-card--content--checkbox">
+                    <input color="primary" 
+                    type="checkbox"
+                    matTooltip="Mark as completed"
+                    [matTooltipShowDelay]="800"
+                    [value]="task.id"
+                    [checked]="task.isCompleted"
+                    (change)="onChangeComplete($event)"/>
+                </div>
+                <div class="container-card--content--description" (click)="openTaskModel(task.id)">
+                    <mat-card-title>{{task.name}}</mat-card-title>
+                    <h4>{{task.description}}</h4>
+                    <mat-card-subtitle>Due Date: {{task.endDate | date}}</mat-card-subtitle>
+                </div>
+            </div>
+            }
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+            <button mat-button class="container-actions--btn" (click)="showFinishedTasks()">
+                <mat-icon>{{ isHideFinishedTasks ? "keyboard_arrow_down" : "keyboard_arrow_right"}}</mat-icon>
+                Completed Task
+            </button>
+        </mat-card-actions>
+        <mat-card-content *ngIf="isHideFinishedTasks" class="container-card--finished-task">
+            @for (finishedTask of finishedTasks; track finishedTask) {
+            <div class="container-card--content">
+                <div class="container-card--content--checkbox">
+                    <input color="primary" 
+                    type="checkbox"
+                    matTooltip="Mark as completed"
+                    [matTooltipShowDelay]="800"
+                    [value]="finishedTask.id"
+                    [checked]="finishedTask.isCompleted"
+                    (change)="onChangeComplete($event)"/>
+                </div>
+                <div class="container-card--content--description">
+                    <mat-card-title>{{finishedTask.name}}</mat-card-title>
+                    <h4>{{finishedTask.description}}</h4>
+                    <mat-card-subtitle>{{finishedTask.endDate | date}}</mat-card-subtitle>
+                </div>
+            </div>
+            }
+        </mat-card-content>
     </mat-card>
 </div>

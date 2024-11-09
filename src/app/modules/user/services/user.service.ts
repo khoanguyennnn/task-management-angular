@@ -1,9 +1,57 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { StorageService } from '../../../auth/services/storage/storage.service';
+const BASE_URL = "https://localhost:7049/";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+
+  
+
+  getTask(isComplete:any, sortBy = 'createdDate', isDecs:any):Observable<any>{
+    return this.http.get(BASE_URL+`api/Task`,{
+      params: {
+        IsCompleted: isComplete,
+        SortBy: sortBy,
+        IsDecsending: isDecs
+      },
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  getTaskById(id:any):Observable<any>{
+    return this.http.get(BASE_URL+`api/Task/${id}`,{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  postFinishTask(id:any):Observable<any> {
+    return this.http.post(BASE_URL+`api/Task/finish/${id}`, {} ,{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  postNewTask(formData:any):Observable<any>{
+    return this.http.post(BASE_URL+`api/Task/create`, formData ,{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  putEditTask(id:any,formData:any):Observable<any>{
+    return this.http.put(BASE_URL+`api/Task/update/${id}`, formData ,{
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
+  private createAuthorizationHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${StorageService.getToken()}`
+    })
+  }
 }
