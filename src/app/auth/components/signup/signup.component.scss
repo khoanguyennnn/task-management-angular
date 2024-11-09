@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+
+    &-card {
+        height: 500px;
+        width: 500px;
+        min-width: 200px;  
+        border-radius: 30px;
+        border: solid black 1px;
+    }
+      
+    .example-header-image {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
+    }
+}
+
+mat-card-header{
+    display: flex;
+    justify-content: center;
+
+    mat-card-title{
+        font-size: 1.6rem;
+        align-self: center;
+        justify-self: center;
+    }
+}
+
+mat-card-content{
+    height: 100%;
+    padding: 20px 40px;
+    form{
+        height: 100%;
+        display: grid;
+        gap: 10px;
+
+        button {
+            background-color: rgb(128, 226, 128);
+        }
+        .visible-btn {
+            background-color: transparent;
+        }
+    }
+}
+
+.signup-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.signup-full-width {
+border-radius: 5px;
+width: 100%;
+}
+
+
+

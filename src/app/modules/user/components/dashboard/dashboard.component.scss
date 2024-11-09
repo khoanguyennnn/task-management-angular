@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    place-content: flex-start center;
+    width: fit-content;
+    min-width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 12px 4px 0 12px;
+
+    &-card {
+        border-color: #f1f3f4;
+        border-radius: 16px;
+        border-style: solid;
+        border-width: 1px;
+        flex-shrink: 1;
+        flex-grow: 1;
+        max-width: 680px;
+        min-width: 300px;
+        overflow: clip;
+
+        &--header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        &:hover {
+            transition: .3s ease;
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        }
+    }
+
+    &-actions{
+        &--btn{
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            border-radius: 20px;
+            color: #1a73e8;
+        }
+    }
+    
+}
+
+mat-card-header{
+    display: flex;
+    flex-direction: column-reverse;
+}
