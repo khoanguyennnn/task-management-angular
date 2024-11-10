@@ -48,6 +48,13 @@ export class UserService {
     })
   }
 
+  deleteTask(id:any):Observable<any>{
+    return this.http.delete(BASE_URL+`api/Task/delete/${id}`,{
+      headers: this.createAuthorizationHeader(),
+      responseType: 'text'
+    })
+  }
+
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',

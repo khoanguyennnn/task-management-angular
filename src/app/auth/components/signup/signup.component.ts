@@ -9,6 +9,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StorageService } from '../../services/storage/storage.service';
 
 
 
@@ -33,6 +34,8 @@ export class SignupComponent {
   signupForm! : FormGroup;
   hidePassword = true;
 
+  isUserLoggedIn:boolean = StorageService.isUserLoggedIn();
+
   constructor (private fb : FormBuilder,
     private authService : AuthService,
     private snackbar: MatSnackBar,
@@ -42,6 +45,15 @@ export class SignupComponent {
       username:[null,[Validators.required]],
       email:[null,[Validators.required,Validators.email]],
       password:[null,[Validators.required]],
+    })
+    if(this.isUserLoggedIn){
+      this.router.navigateByUrl("/user/dashboard");
+    }
+  }
+
+  ngOnInit(){
+    this.router.events.subscribe(e => {
+      this.isUserLoggedIn = StorageService.isUserLoggedIn()
     })
   }
 

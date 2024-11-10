@@ -30,7 +30,13 @@ export class AppComponent {
   // title = 'task-management-angular';
   isUserLoggedIn:boolean = StorageService.isUserLoggedIn();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    if(this.isUserLoggedIn){
+      this.router.navigateByUrl("/user/dashboard");
+    } else {
+      this.router.navigateByUrl("/login");
+    }
+  }
 
   ngOnInit(){
     this.router.events.subscribe(e => {

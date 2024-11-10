@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, model, NgModule, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, model, NgModule, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -66,10 +66,19 @@ export class DashboardComponent {
   hideSingleSelectionIndicator = signal(false);
 
   constructor(private userService: UserService,
-    private fb: FormBuilder
   ){
     this.getTasks(false, 'updatedDate', true);
     this.getFinishedTasks();
+  }
+
+  isShowButton = this.tasks.map(() => false);
+  
+  onMouseEnter(index: number) {
+    this.isShowButton[index] = true;
+  }
+
+  onMouseLeave(index: number) {
+    this.isShowButton[index] = false;
   }
 
   getTasks(isComplete:any, sortBy:any, isDecs:any){
@@ -127,6 +136,22 @@ export class DashboardComponent {
         this.endDate.set(result);
       }
     });
+  }
+
+  openDeleteModel(enterAnimationDuration: string, exitAnimationDuration: string, id:any): void {
+    this.userService.getTaskById(id).subscribe(res => {
+      const dialogRef = this.taskModel.open(DeleteModel, {
+        data: res,
+        width: '500px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.getTasks(false, 'updatedDate', true);
+      });
+    })
+
   }
 
   openTaskModel(id:any) {
@@ -265,4 +290,28 @@ export class TaskModel {
     this.dialogRef.close();
   }
 
+}
+
+@Component({
+  selector: 'deleteModel.component',
+  templateUrl: 'deleteModel.component.html',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DeleteModel {
+  readonly data = inject(MAT_DIALOG_DATA);
+  readonly dialogRef = inject(MatDialogRef<DeleteModel>);
+
+  constructor(private userService: UserService, private snackbar: MatSnackBar){}
+
+  deleteTaskConfirm(id:any): void{
+    this.userService.deleteTask(id).subscribe(res => {
+      if(res == "Delete successfully"){
+        this.snackbar.open("Delete task successfully", "Close", {duration: 5000, horizontalPosition: "left"});
+      } else {
+        this.snackbar.open("Delete task failed", "Close", {duration: 5000, panelClass:"error-snackbar", horizontalPosition: "left"});
+      }
+    })
+  }
 }

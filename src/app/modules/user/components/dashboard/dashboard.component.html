@@ -32,7 +32,7 @@
         </mat-card-actions>
         <mat-card-content>
             @for (task of tasks; track task) {
-            <div class="container-card--content">
+            <div class="container-card--content" (mouseenter)="onMouseEnter(task.id)" (mouseleave)="onMouseLeave(task.id)">
                 <div class="container-card--content--checkbox">
                     <input color="primary" 
                     type="checkbox"
@@ -47,6 +47,9 @@
                     <h4>{{task.description}}</h4>
                     <mat-card-subtitle>Due Date: {{task.endDate | date}}</mat-card-subtitle>
                 </div>
+                <button mat-mini-fab color="primary" *ngIf="isShowButton[task.id]" [value]="task.id" (click)="openDeleteModel('300ms', '300ms', task.id)" id="delete-btn">
+                    <mat-icon>delete</mat-icon>
+                </button>
             </div>
             }
         </mat-card-content>

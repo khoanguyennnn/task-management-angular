@@ -33,6 +33,8 @@ export class LoginComponent {
   loginForm! : FormGroup;
   hidePassword = true;
 
+  isUserLoggedIn:boolean = StorageService.isUserLoggedIn();
+
   constructor (private fb:FormBuilder,
     private authService : AuthService,
     private snackbar: MatSnackBar,
@@ -41,6 +43,15 @@ export class LoginComponent {
     this.loginForm = this.fb.group({
       username:[null,[Validators.required]],
       password:[null,[Validators.required]],
+    })
+    if(this.isUserLoggedIn){
+      this.router.navigateByUrl("/user/dashboard");
+    }
+  }
+
+  ngOnInit(){
+    this.router.events.subscribe(e => {
+      this.isUserLoggedIn = StorageService.isUserLoggedIn()
     })
   }
 

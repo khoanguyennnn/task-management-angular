@@ -1,6 +1,6 @@
 <div *ngIf="!isUserLoggedIn">
   <mat-toolbar color="primary" class="navbar">
-    <span class="navbar-brand">Task Management Application</span>
+    <span class="navbar-brand">Tasks</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/signup" routerLinkActive="active">REGISTER</button>
     <button mat-button routerLink="/login" routerLinkActive="active">LOGIN</button>
@@ -9,7 +9,7 @@
 
 <div *ngIf="isUserLoggedIn">
   <mat-toolbar color="primary" class="navbar">
-    <span class="navbar-brand">Task Management Application</span>
+    <span class="navbar-brand">Tasks</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/user/dashboard" routerLinkActive="active">DASHBOARD</button>
     <button mat-button (click)="logout()" routerLinkActive="active">LOGOUT</button>
