@@ -62,7 +62,7 @@
         </mat-card-actions>
         <mat-card-content *ngIf="isHideFinishedTasks" class="container-card--finished-task">
             @for (finishedTask of finishedTasks; track finishedTask) {
-            <div class="container-card--content">
+            <div class="container-card--content" (mouseenter)="onMouseEnter(finishedTask.id)" (mouseleave)="onMouseLeave(finishedTask.id)">
                 <div class="container-card--content--checkbox">
                     <input color="primary" 
                     type="checkbox"
@@ -73,10 +73,12 @@
                     (change)="onChangeComplete($event)"/>
                 </div>
                 <div class="container-card--content--description">
-                    <mat-card-title>{{finishedTask.name}}</mat-card-title>
+                    <mat-card-title style="text-decoration: line-through;">{{finishedTask.name}}</mat-card-title>
                     <h4>{{finishedTask.description}}</h4>
-                    <mat-card-subtitle>{{finishedTask.endDate | date}}</mat-card-subtitle>
                 </div>
+                <button mat-mini-fab color="primary" *ngIf="isShowButton[finishedTask.id]" [value]="finishedTask.id" (click)="openDeleteModel('300ms', '300ms', finishedTask.id)" id="delete-btn">
+                    <mat-icon>delete</mat-icon>
+                </button>
             </div>
             }
         </mat-card-content>

@@ -149,6 +149,7 @@ export class DashboardComponent {
 
       dialogRef.afterClosed().subscribe(result => {
         this.getTasks(false, 'updatedDate', true);
+        this.getFinishedTasks();
       });
     })
 

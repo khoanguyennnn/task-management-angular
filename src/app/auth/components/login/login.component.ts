@@ -73,9 +73,8 @@ export class LoginComponent {
       } else {
         this.snackbar.open("Login failed", "Close", {duration: 5000, panelClass: "error-snackbar", horizontalPosition: "left"});  
       }
-    }, error => {
-      console.log(error);
-      this.snackbar.open(error.error, "Close", {duration: 5000, panelClass: "error-snackbar", horizontalPosition: "left"});
+    }, error => {  
+      this.snackbar.open(error.message, "Close", {duration: 5000, panelClass: "error-snackbar", horizontalPosition: "left"});
     })
   }
 }

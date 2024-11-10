@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StorageService } from '../../../auth/services/storage/storage.service';
-const BASE_URL = "https://localhost:7049/";
+const BASE_URL = "https://taskmanagementapp20241111001602.azurewebsites.net/";
 
 @Injectable({
   providedIn: 'root'
