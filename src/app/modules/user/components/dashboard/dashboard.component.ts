@@ -24,7 +24,6 @@ import {MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NgxMatDateAdapter, NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 export interface DialogData {
   name: string;
@@ -192,10 +191,7 @@ export class DashboardComponent {
     MatDialogClose,
     MatDatepickerModule,
     CommonModule, 
-    ReactiveFormsModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideNativeDateAdapter()
