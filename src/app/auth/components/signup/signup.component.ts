@@ -71,8 +71,7 @@ export class SignupComponent {
         this.snackbar.open("Signup failed", "Close", {duration: 5000, panelClass:"error-snackbar", horizontalPosition: "left"});  
       }
     }, (error) => {
-      console.log(error);
-      this.snackbar.open(error.error, "Close", {duration: 5000, panelClass: "error-snackbar", horizontalPosition: "left"});
+      this.snackbar.open(error.error.map(res => {return res.description}), "Close", {duration: 5000, panelClass: "error-snackbar", horizontalPosition: "left"});
     })
   }
 }
