@@ -63,7 +63,6 @@ export class SignupComponent {
 
   onSubmit(){
     this.authService.signup(this.signupForm.value).subscribe((res) => {
-      console.log(res);
       if(res.userName != null){
         this.snackbar.open("Signup successfully", "Close", {duration: 5000, horizontalPosition: "left"});
         this.router.navigateByUrl("/login");

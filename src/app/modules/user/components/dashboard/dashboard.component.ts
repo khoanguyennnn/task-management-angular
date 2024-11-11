@@ -24,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxMatDateAdapter, NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 export interface DialogData {
   name: string;
@@ -191,9 +192,14 @@ export class DashboardComponent {
     MatDialogClose,
     MatDatepickerModule,
     CommonModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
   ],
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter()
+  ],
   styleUrl: './dashboard.component.scss'
 })
 export class TaskCreatingModel {
@@ -221,8 +227,7 @@ export class TaskCreatingModel {
     this.dialogRef.close();
   }
 
-  postTask(): void {
-    // console.log(this.taskForm.value);
+  postTask(): void { 
     this.userService.postNewTask(this.taskForm.value).subscribe(res => {
       if(res && res.id){
         this.snackbar.open("Add a new task successfully", "Close", {duration: 5000, horizontalPosition: "left"});
@@ -280,7 +285,6 @@ export class TaskModel {
   }
 
   putTask(id:any): void {
-    // console.log(this.taskForm.value);
     this.userService.putEditTask(id,this.taskForm.value).subscribe(res => {
       if(res && res.id){
         this.snackbar.open("Update task successfully", "Close", {duration: 5000, horizontalPosition: "left"});

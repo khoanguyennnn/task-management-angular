@@ -59,6 +59,10 @@ export class LoginComponent {
     this.hidePassword = !this.hidePassword;
   }
 
+  onNavigation(url:string){
+    this.router.navigateByUrl(url);
+  }
+
   onSubmit(){
     this.authService.login(this.loginForm.value).subscribe((res) => {
       if(res.userName){

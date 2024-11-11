@@ -15,16 +15,8 @@
             Enter your description
             </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a due date" formControlName="endDate">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="taskForm.get('endDate')?.hasError('required')">
-                Enter your description
-            </mat-error>    
-        </mat-form-field>
+        <mat-label>Due Date</mat-label>
+        <input class="datetime-local" type="datetime-local" placeholder="Choose a due date" formControlName="endDate">
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
